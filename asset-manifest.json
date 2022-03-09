@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ra-forms-steps/static/css/main.fd356b9a.css",
+    "main.js": "/ra-forms-steps/static/js/main.cb38ffbe.js",
+    "static/js/787.04097c43.chunk.js": "/ra-forms-steps/static/js/787.04097c43.chunk.js",
+    "index.html": "/ra-forms-steps/index.html",
+    "main.fd356b9a.css.map": "/ra-forms-steps/static/css/main.fd356b9a.css.map",
+    "main.cb38ffbe.js.map": "/ra-forms-steps/static/js/main.cb38ffbe.js.map",
+    "787.04097c43.chunk.js.map": "/ra-forms-steps/static/js/787.04097c43.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fd356b9a.css",
+    "static/js/main.cb38ffbe.js"
+  ]
+}
