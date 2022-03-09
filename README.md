@@ -1,5 +1,5 @@
 # React
-### [Gh-Pages](https://tomsg03.github.io/ra-forms-hex2rgb/)
+### [Gh-Pages](https://tomsg03.github.io/ra-forms-steps/)
 
 
 ## [Домашнее задание к лекции «Работа с формами»](https://github.com/TomSG03/ra16-homeworks/tree/master/forms)
