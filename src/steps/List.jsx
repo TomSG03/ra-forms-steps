@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function List({ list, onEvent }) {
 if (list.length === 0) {
@@ -31,5 +32,10 @@ const items = list.map((item) =>
     </>
   )
 }
+
+List.prototype = {
+  list: PropTypes.array,
+  onEvent: PropTypes.func,
+}  
 
 export default List

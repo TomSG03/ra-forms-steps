@@ -1,23 +1,27 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-function InputForm({form, handlerInput}) {
-  function onChange() {
-    
-  }
+function InputForm({forms, handlerInput, handlerOK}) {
 
   return (
     <form className='input-form'>
       <div className='form-date'>
         <label htmlFor="Date">Дата (ДД.ММ.ГГ)</label>
-        <input value={form.date} type='text' onChange={onChange}/>  
+        <input data-name='date' value={forms.date} type='text' onChange={handlerInput} required/>  
       </div>
       <div className='form-distance'>
       <label htmlFor="Date">Пройдено км</label>
-        <input value={form.distance} type='text' onChange={onChange}/>  
+        <input data-name='distance' value={forms.distance} type='number' onChange={handlerInput} required/>  
       </div>
-      <button className='btn-ok' onClick={handlerInput}>OK</button>
+      <button className='btn-ok' onClick={handlerOK}>OK</button>
     </form>
   )
 }
+
+InputForm.prototype = {
+  InputForm: PropTypes.object,
+  handlerInput: PropTypes.func,
+  handlerOK: PropTypes.func,
+} 
 
 export default InputForm

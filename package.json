@@ -20,7 +20,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://TomSG03.github.io/ra-forms-hex2rgb",
+  "homepage": "https://TomSG03.github.io/ra-forms-steps",
   "eslintConfig": {
     "extends": [
       "react-app",

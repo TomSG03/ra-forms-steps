@@ -3,72 +3,65 @@ import InputForm from './InputForm';
 import List from './List';
 import shortid from 'shortid';
 
+function valid(forms) {
+  if (forms.date === '' || forms.distance === '') {
+    return false;
+  }
+  if (!forms.date.match(/^([0]?[1-9]|[1|2][0-9]|[3][0|1])[.]([0]?[1-9]|[1][0-2])[.]([0-9]{4}|[0-9]{2})$/)) {
+    return false;
+  }
+  return true;
+}
+
 function Steps() {
-  const [form, setForm] = useState({id: '', date: '', distance: ''});
-  const [distance, setDistance] = useState([
-    {
-      id: shortid.generate(),
-      date: '02.02.22',
-      distance: 15
-    }, 
-    {
-      id: shortid.generate(),
-      date: '03.03.22',
-      distance: 10
-    }, 
-    ]);
-
-  // function dataExists(form) {
-  //   const find = distance.findIndex((item) => item === form[0].value)
-  //   return find;
-  // }
+  const [forms, setForms] = useState({ id: '', date: '', distance: '' });
+  const [distance, setDistance] = useState([]);
 
 
-  function onInput(e) {
+  function handlerOK(e) {
     e.preventDefault();
-    const form = e.target.form;
 
-    if (form[0].value === '' || form[1].value === '') {
-      return
+    if (valid(forms)) {
+      const exists = distance.findIndex((item) => item.date === forms.date)
+      if (exists !== -1) {
+        const copy = [...distance];
+        copy[exists].distance = Number(copy[exists].distance) + Number(forms.distance);
+        setDistance(copy);
+      } else {
+        const copy = [...distance, { id: shortid.generate(), date: forms.date, distance: forms.distance }]
+        copy.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setDistance(copy)
+      }
+      setForms({ date: '', distance: '' })
     }
-    const exists = distance.findIndex((item) => item.date === form[0].value)
-    if (exists !== -1) {
-      const copy = Object.assign([], distance);
-      copy[exists].distance += +form[1].value;
-      setDistance(copy);
-    } else {
-      // const copy = Object.assign([], distance);
-      const copy = [ ...distance, {id: shortid.generate(), date: form[0].value, distance:  form[1].value}]
-      copy.sort(function (a, b) {
-        if (a.date > b.date) {
-          return 1;
-        }
-        if (a.date < b.date) {
-          return -1;
-        }
-        // a должно быть равным b
-        return 0;
-      });
-      setDistance(copy)
-    }
-    form[0].value = '';
-    form[1].value = '';
   }
 
-  function onEvent(e) {
-    // console.log(e.target.classList);
-    if (e.target.classList.contains('item-del')) {
-      setDistance(prev => prev.filter(o => o.id !== e.target.dataset.id));
+  function onEvent({ target }) {
+    if (target.classList.contains('item-del')) {
+      setDistance(prev => prev.filter(o => o.id !== target.dataset.id));
     } else {
-
+      console.log(target.dataset.id);
+      const edit = distance.findIndex((item) => item.id === target.dataset.id)
+      setForms({ date: distance[edit].date, distance: distance[edit].distance })
     }
-    
+  }
+
+  function handlerInput({ target }) {
+    console.log(target.dataset.name);
+    setForms((prev) => {
+      if (target.dataset.name === 'date') {
+        return { ...prev, date: target.value };
+      }
+      if (target.dataset.name === 'distance') {
+        return { ...prev, distance: target.value };
+      }
+    })
   }
 
   return (
     <>
-      <InputForm form={form} handlerInput={onInput} />
-      <List list={distance} onEvent={onEvent}/>
+      <InputForm forms={forms} handlerInput={handlerInput} handlerOK={handlerOK} />
+      <List list={distance} onEvent={onEvent} />
     </>
   )
 }
